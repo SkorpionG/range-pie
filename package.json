@@ -1,0 +1,30 @@
+{
+  "name": "range-pie",
+  "version": "1.0.0",
+  "description": "A JavaScript class that simulate Python's range function, combined with several useful JavaScript array methods.",
+  "main": "src/index.js",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "require": "./src/index.js"
+    }
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [
+    "range",
+    "Python range",
+    "Python",
+    "JavaScript",
+    "JavaScript Array",
+    "Array",
+    "py-range",
+    "PyRange"
+  ],
+  "author": "SkorpionG2000",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
