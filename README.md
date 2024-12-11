@@ -40,7 +40,7 @@ A JavaScript library that brings Python's range functionality to JavaScript, enh
 ## Installation
 
 ```bash
-npm install python-range
+npm install range-pie
 ```
 
 ## Basic Usage

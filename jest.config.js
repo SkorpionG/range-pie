@@ -3,6 +3,6 @@ export default {
   testEnvironment: "node",
   testMatch: ["**/test/**/*.test.js"],
   moduleNameMapper: {
-    "^py-range$": "<rootDir>/src/index.js",
+    "^range-pie$": "<rootDir>/src/index.js",
   },
 };
