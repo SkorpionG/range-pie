@@ -32,7 +32,7 @@ types/
 docs/
 
 # Keep examples in the package for users
-# examples/
+!examples/
 
 # Source maps
 *.map
