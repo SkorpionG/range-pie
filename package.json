@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build",
+    "build:prod": "tsc -p tsconfig.prod.json",
+    "prepublishOnly": "npm run build:prod",
     "test": "jest",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"examples/**/*.ts\"",

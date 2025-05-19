@@ -35,4 +35,4 @@ docs/
 !examples/
 
 # Source maps
-*.map
+dist/**/*.map
