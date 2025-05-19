@@ -1,8 +1,14 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 export default {
-  transform: {},
-  testEnvironment: "node",
-  testMatch: ["**/test/**/*.test.js"],
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ["**/test/**/*.test.ts", "**/test/**/*.test.js"],
   moduleNameMapper: {
-    "^range-pie$": "<rootDir>/src/index.js",
+    "^range-pie$": "<rootDir>/src/index.ts",
+  },
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: 'tsconfig.json',
+    }],
   },
 };

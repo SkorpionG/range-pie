@@ -1,11 +1,15 @@
 # range-pie
 
-A JavaScript library that brings Python's range functionality to JavaScript, enhanced with familiar array methods. This lightweight utility provides a seamless way to work with numeric sequences while maintaining JavaScript's functional programming paradigm.
+A TypeScript/JavaScript library that brings Python's range functionality to JavaScript, enhanced with familiar array methods. This lightweight utility provides a seamless way to work with numeric sequences while maintaining JavaScript's functional programming paradigm. Fully typed for TypeScript users while remaining compatible with JavaScript projects.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
+
+  - [JavaScript](#javascript)
+  - [TypeScript](#typescript)
+
 - [API Reference](#api-reference)
 
   - [Constructor Options](#constructor-options)
@@ -36,6 +40,9 @@ A JavaScript library that brings Python's range functionality to JavaScript, enh
 
   - [Methods chaining](#methods-chaining)
   - [Using as Array-like Object](#using-as-array-like-object)
+  - [Example Files](#example-files)
+    - [Running the Examples](#running-the-examples)
+    - [Available Examples](#available-examples)
 
 ## Installation
 
@@ -45,7 +52,10 @@ npm install range-pie
 
 ## Basic Usage
 
+### JavaScript
+
 ```javascript
+// CommonJS
 const { PyRange } = require('range-pie');
 
 // Create a range from 0 to 5
@@ -59,6 +69,25 @@ console.log([...range2]); // [2, 3, 4, 5, 6, 7]
 // Create a range with step
 const range3 = new PyRange(0, 10, 2);
 console.log([...range3]); // [0, 2, 4, 6, 8]
+```
+
+### TypeScript
+
+```typescript
+// ES Modules
+import { PyRange } from 'range-pie';
+
+// Create a range from 0 to 5
+const range = new PyRange(5);
+console.log([...range]); // [0, 1, 2, 3, 4]
+
+// Type-safe operations
+const doubledValues: number[] = range.map(x => x * 2);
+console.log(doubledValues); // [0, 2, 4, 6, 8]
+
+// Type inference works with generics
+const stringValues: string[] = range.map(x => `Value: ${x}`);
+console.log(stringValues); // ['Value: 0', 'Value: 1', 'Value: 2', 'Value: 3', 'Value: 4']
 ```
 
 ## API Reference
@@ -304,6 +333,29 @@ console.log(proxy[0]); // 0
 console.log(proxy[3]); // 3
 ```
 
+### TypeScript Support
+
+This package is written in TypeScript and provides full type definitions for all methods and properties. TypeScript users get the following benefits:
+
+- Type checking for all method parameters and return values
+- Autocompletion in IDEs
+- Generic type support for methods like `map()` and `reduce()`
+- Better documentation through type annotations
+
+```typescript
+// Type inference with generics
+const range = new PyRange(5);
+
+// TypeScript knows this is a number[]
+const numbers = range.map(x => x * 2);
+
+// TypeScript knows this is a string[]
+const strings = range.map(x => `Number: ${x}`);
+
+// TypeScript knows this is a boolean[]
+const booleans = range.map(x => x % 2 === 0);
+```
+
 ## Examples
 
 ### Methods chaining
@@ -323,3 +375,43 @@ const range = new PyRange(5).asProxy();
 const firstThree = [range[0], range[1], range[2]];
 console.log(firstThree); // [0, 1, 2]
 ```
+
+### Example Files
+
+This package includes several example files to help you get started. You can find them in the `examples` directory after installing the package.
+
+#### Running the Examples
+
+If you've cloned the repository, you can run the examples using npm scripts:
+
+```bash
+# Run basic usage examples
+npm run example:basic
+
+# Run array methods examples
+npm run example:array
+
+# Run advanced usage examples
+npm run example:advanced
+
+# Run TypeScript examples (requires ts-node)
+npm run example:ts
+```
+
+Or you can run them directly with Node.js:
+
+```bash
+node node_modules/range-pie/examples/basic-usage.js
+node node_modules/range-pie/examples/array-methods.js
+node node_modules/range-pie/examples/advanced-usage.js
+
+# For TypeScript examples
+ts-node node_modules/range-pie/examples/typescript-usage.ts
+```
+
+#### Available Examples
+
+- **basic-usage.js**: Shows fundamental PyRange operations
+- **array-methods.js**: Demonstrates all array-like methods
+- **advanced-usage.js**: Covers advanced features like method chaining and proxy usage
+- **typescript-usage.ts**: Shows TypeScript-specific features and type safety

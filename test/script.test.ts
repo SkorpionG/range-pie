@@ -1,11 +1,11 @@
-const { test, expect } = require("@jest/globals");
-const { PyRange } = require("range-pie");
+import { describe, test, expect, beforeEach } from "@jest/globals";
+import { PyRange } from "range-pie";
 
 describe("PyRange", () => {
   // 建構函式測試
   describe("constructor", () => {
     test("建構函式參數驗證", () => {
-      expect(() => new PyRange("1")).toThrow(TypeError);
+      expect(() => new PyRange("1" as any)).toThrow(TypeError);
       expect(() => new PyRange(1.5)).toThrow(TypeError);
       expect(() => new PyRange(1, 5, 0)).toThrow("Step cannot be zero");
       expect(() => new PyRange()).toThrow("Invalid arguments count");
@@ -34,7 +34,7 @@ describe("PyRange", () => {
 
   // 方法測試
   describe("methods", () => {
-    let range;
+    let range: PyRange;
 
     beforeEach(() => {
       range = new PyRange(1, 6);
@@ -103,7 +103,7 @@ describe("PyRange", () => {
   describe("iterator", () => {
     test("for...of 迴圈", () => {
       const range = new PyRange(1, 4);
-      const result = [];
+      const result: number[] = [];
       for (const num of range) {
         result.push(num);
       }

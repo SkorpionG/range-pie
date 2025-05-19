@@ -130,3 +130,10 @@ dist
 .pnp.*
 
 .DS_Store
+
+# TypeScript compiled JavaScript files
+# src/**/*.js
+# test/**/*.js
+
+# Keep configuration JavaScript files
+!jest.config.js

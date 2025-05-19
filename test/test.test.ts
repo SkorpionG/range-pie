@@ -1,5 +1,5 @@
-const { test, expect } = require("@jest/globals");
-const { PyRange } = require("range-pie");
+import { describe, test, expect } from "@jest/globals";
+import { PyRange } from "range-pie";
 
 describe("PyRange", () => {
   test("constructor with one argument", () => {

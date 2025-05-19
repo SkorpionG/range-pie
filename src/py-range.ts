@@ -1,8 +1,14 @@
-"use strict";
+/**
+ * A class that simulates Python's range function, combined with several useful JavaScript array methods.
+ */
+class PyRange implements Iterable<number> {
+  private _start: number;
+  private _stop: number;
+  private _step: number;
+  private _length: number;
 
-class PyRange {
   /**
-   * A class that simulate Python's range function, combined with several useful JavaScript array methods.
+   * Creates a new PyRange instance.
    * @param {...number} args - The arguments of the range. The possible forms are
    *   - `PyRange(stop)`
    *   - `PyRange(start, stop)`
@@ -16,7 +22,7 @@ class PyRange {
    * @property {number} step - The step of the range.
    * @property {number} length - The length of the range.
    */
-  constructor(...args) {
+  constructor(...args: number[]) {
     if (!args.every((arg) => typeof arg === "number")) {
       throw new TypeError("All arguments must be numbers");
     }
@@ -29,12 +35,12 @@ class PyRange {
       args.length === 1
         ? [0, args[0], 1]
         : args.length === 2
-        ? [args[0], args[1], 1]
-        : args.length === 3
-        ? [args[0], args[1], args[2]]
-        : (() => {
-            throw new Error("Invalid arguments count: must between 1 and 3");
-          })();
+          ? [args[0], args[1], 1]
+          : args.length === 3
+            ? [args[0], args[1], args[2]]
+            : (() => {
+                throw new Error("Invalid arguments count: must between 1 and 3");
+              })();
 
     if (step === 0) {
       throw new Error("Step cannot be zero");
@@ -54,7 +60,7 @@ class PyRange {
    * @returns {number} the length of this range
    * @readonly
    */
-  get length() {
+  get length(): number {
     return this._length;
   }
 
@@ -64,7 +70,7 @@ class PyRange {
    * @returns {number} The starting value of the range.
    * @readonly
    */
-  get start() {
+  get start(): number {
     return this._start;
   }
 
@@ -74,7 +80,7 @@ class PyRange {
    * @returns {number} The ending value of the range.
    * @readonly
    */
-  get stop() {
+  get stop(): number {
     return this._stop;
   }
 
@@ -84,7 +90,7 @@ class PyRange {
    * @returns {number} The step value of the range.
    * @readonly
    */
-  get step() {
+  get step(): number {
     return this._step;
   }
 
@@ -94,7 +100,7 @@ class PyRange {
    * @returns {number} The value at the specified index
    * @throws {RangeError} If the index is out of range
    */
-  at(index) {
+  at(index: number): number {
     if (index < 0 || index >= this._length) {
       throw new RangeError("Index out of range");
     }
@@ -105,7 +111,7 @@ class PyRange {
    * Converts the range to a string.
    * @returns {string} A string of the form `Range(start, stop, step)`.
    */
-  toString() {
+  toString(): string {
     return `PyRange(${this._start}, ${this._stop}, ${this._step})`;
   }
 
@@ -113,11 +119,16 @@ class PyRange {
    * Converts the range to an array.
    * @returns {number[]} An array of numbers with the same elements as this range.
    */
-  toArray() {
+  toArray(): number[] {
     return [...this];
   }
 
-  static #validateCb(cb) {
+  /**
+   * Validates that the callback is a function.
+   * @param {Function} cb - The callback to validate.
+   * @throws {TypeError} If the callback is not a function.
+   */
+  private static validateCb(cb: Function): void {
     if (typeof cb !== "function") {
       throw new TypeError("Callback must be a function");
     }
@@ -126,14 +137,15 @@ class PyRange {
   /**
    * Creates a new array with the results of applying the given callback
    * function to every element in this range.
-   * @param {function(number, number, PyRange): *} callback - The callback
+   * @param {function(number, number, PyRange): T} callback - The callback
    * function to apply to every element.
-   * @returns {Array.<*>} A new array of the same length as this range.
+   * @returns {T[]} A new array of the same length as this range.
+   * @template T
    */
-  map(callback) {
-    PyRange.#validateCb(callback);
+  map<T>(callback: (value: number, index: number, range: PyRange) => T): T[] {
+    PyRange.validateCb(callback);
 
-    const result = new Array(this._length);
+    const result = new Array<T>(this._length);
 
     for (let i = 0; i < this._length; i++) {
       result[i] = callback(this.at(i), i, this);
@@ -149,14 +161,15 @@ class PyRange {
    * predicate function to apply to every element
    * @returns {number[]} A new array of elements that pass the test
    */
-  filter(callback) {
-    PyRange.#validateCb(callback);
+  filter(callback: (value: number, index: number, range: PyRange) => boolean): number[] {
+    PyRange.validateCb(callback);
 
-    const result = [];
+    const result: number[] = [];
 
     for (let i = 0; i < this._length; i++) {
-      if (callback(this.at(i), i, this)) {
-        result.push(this.at(i));
+      const value = this.at(i);
+      if (callback(value, i, this)) {
+        result.push(value);
       }
     }
 
@@ -165,19 +178,36 @@ class PyRange {
 
   /**
    * Reduces the range to a single value.
-   * @param {function(*, number, number, PyRange): *} callback - The callback
+   * @param {function(T, number, number, PyRange): T} callback - The callback
    * function to apply to every element. The callback should take four
    * arguments: the accumulator, the current value, the index of the current
    * value, and the range object.
-   * @param {*} [initialValue] - The initial value of the accumulator.
-   * @returns {*} The final value of the accumulator.
+   * @param {T} [initialValue] - The initial value of the accumulator.
+   * @returns {T} The final value of the accumulator.
+   * @template T
    */
-  reduce(callback, initialValue) {
-    PyRange.#validateCb(callback);
+  reduce<T>(
+    callback: (accumulator: T, value: number, index: number, range: PyRange) => T,
+    initialValue?: T
+  ): T {
+    PyRange.validateCb(callback);
 
-    let accumulator = initialValue;
+    if (this._length === 0 && initialValue === undefined) {
+      throw new TypeError("Reduce of empty range with no initial value");
+    }
 
-    for (let i = 0; i < this._length; i++) {
+    let accumulator: T;
+    let startIndex: number;
+
+    if (initialValue !== undefined) {
+      accumulator = initialValue;
+      startIndex = 0;
+    } else {
+      accumulator = this.at(0) as unknown as T;
+      startIndex = 1;
+    }
+
+    for (let i = startIndex; i < this._length; i++) {
       accumulator = callback(accumulator, this.at(i), i, this);
     }
 
@@ -192,8 +222,8 @@ class PyRange {
    * @returns {boolean} True if at least one element of the range passes the
    * test, false otherwise.
    */
-  some(callback) {
-    PyRange.#validateCb(callback);
+  some(callback: (value: number, index: number, range: PyRange) => boolean): boolean {
+    PyRange.validateCb(callback);
 
     for (let i = 0; i < this._length; i++) {
       if (callback(this.at(i), i, this)) {
@@ -210,8 +240,8 @@ class PyRange {
    * @returns {boolean} True if all elements of the range pass the test,
    * false otherwise.
    */
-  every(callback) {
-    PyRange.#validateCb(callback);
+  every(callback: (value: number, index: number, range: PyRange) => boolean): boolean {
+    PyRange.validateCb(callback);
 
     for (let i = 0; i < this._length; i++) {
       if (!callback(this.at(i), i, this)) {
@@ -228,8 +258,8 @@ class PyRange {
    * @returns {number|undefined} The first element that passes the test,
    * or undefined if no element passes the test.
    */
-  find(callback) {
-    PyRange.#validateCb(callback);
+  find(callback: (value: number, index: number, range: PyRange) => boolean): number | undefined {
+    PyRange.validateCb(callback);
 
     for (let i = 0; i < this._length; i++) {
       if (callback(this.at(i), i, this)) {
@@ -244,8 +274,8 @@ class PyRange {
    * @param {function(number, number, PyRange): boolean} callback - The predicate function to apply to each element.
    * @returns {number} The index of the first element that passes the test, or -1 if no element passes the test.
    */
-  findIndex(callback) {
-    PyRange.#validateCb(callback);
+  findIndex(callback: (value: number, index: number, range: PyRange) => boolean): number {
+    PyRange.validateCb(callback);
 
     for (let i = 0; i < this._length; i++) {
       if (callback(this.at(i), i, this)) {
@@ -260,8 +290,8 @@ class PyRange {
    * @param {function(number, number, PyRange): boolean} callback - The predicate function to apply to each element.
    * @returns {number} The index of the last element that passes the test, or -1 if no element passes the test.
    */
-  findLastIndex(callback) {
-    PyRange.#validateCb(callback);
+  findLastIndex(callback: (value: number, index: number, range: PyRange) => boolean): number {
+    PyRange.validateCb(callback);
 
     for (let i = this._length - 1; i >= 0; i--) {
       if (callback(this.at(i), i, this)) {
@@ -276,8 +306,8 @@ class PyRange {
    * @param {function(number, number, PyRange): void} callback - The
    * function to execute for each element.
    */
-  forEach(callback) {
-    PyRange.#validateCb(callback);
+  forEach(callback: (value: number, index: number, range: PyRange) => void): void {
+    PyRange.validateCb(callback);
 
     for (let i = 0; i < this._length; i++) {
       callback(this.at(i), i, this);
@@ -286,19 +316,19 @@ class PyRange {
 
   /**
    * Determines whether the given value is present in this range.
-   * @param {*} value - The value to search for.
+   * @param {any} value - The value to search for.
    * @returns {boolean} True if the value is present, false otherwise.
    */
-  includes(value) {
+  includes(value: any): boolean {
     return this.some((item) => item === value);
   }
 
   /**
    * Returns the index of the first occurrence of the specified value, or -1 if it is not present.
-   * @param {*} value - The value to search for.
+   * @param {any} value - The value to search for.
    * @returns {number} The index of the value, or -1 if it is not present.
    */
-  indexOf(value) {
+  indexOf(value: any): number {
     for (let i = 0; i < this._length; i++) {
       if (this.at(i) === value) {
         return i;
@@ -309,10 +339,10 @@ class PyRange {
 
   /**
    * Returns the index of the last occurrence of the specified value, or -1 if it is not present.
-   * @param {*} value - The value to search for.
+   * @param {any} value - The value to search for.
    * @returns {number} The index of the last occurrence of the value, or -1 if it is not present.
    */
-  lastIndexOf(value) {
+  lastIndexOf(value: any): number {
     for (let i = this._length - 1; i >= 0; i--) {
       if (this.at(i) === value) {
         return i;
@@ -325,21 +355,26 @@ class PyRange {
    * Reverses the order of the elements in this range, returning a new PyRange object.
    * @returns {PyRange} A new PyRange object with the elements in reverse order.
    */
-  reverse() {
+  reverse(): PyRange {
     const result = new PyRange(this._stop, this._start, -this._step);
-    result._length = this._length;
+    // Force the length to be the same as the original range
+    (result as any)._length = this._length;
     return result;
   }
 
-  [Symbol.iterator]() {
+  /**
+   * Implements the iterable protocol for this range.
+   * @returns {Iterator<number>} An iterator for this range.
+   */
+  [Symbol.iterator](): Iterator<number> {
     let index = 0;
     let current = this._start;
-    const { _stop: _, _step: step, _length: length } = this;
+    const { _step: step, _length: length } = this;
 
     return {
-      next: () => {
+      next: (): IteratorResult<number> => {
         if (index >= length) {
-          return { done: true };
+          return { done: true, value: undefined };
         } else {
           const value = current;
           current += step;
@@ -355,22 +390,23 @@ class PyRange {
    * This proxy enables accessing range elements via array-like indexing.
    * If the property is a number, it will return the element at that index.
    *
-   * @returns {Proxy} A proxy for the PyRange instance.
+   * @returns {any} A proxy for the PyRange instance.
    */
-  asProxy() {
+  asProxy(): any {
     return new Proxy(this, {
-      get(target, prop) {
+      get(target: PyRange, prop: string | symbol): any {
         if (typeof prop === "symbol") {
-          return target[prop];
+          return (target as any)[prop];
         }
-        if (!isNaN(prop)) {
-          return target.at(parseInt(prop));
+        if (!isNaN(Number(prop))) {
+          return target.at(parseInt(String(prop), 10));
         }
-        return target[prop];
+        return (target as any)[prop];
       },
     });
   }
 }
 
-module.exports = PyRange;
-module.exports.PyRange = PyRange;
+// Export the class for both CommonJS and ES Module usage
+export { PyRange };
+export default PyRange;

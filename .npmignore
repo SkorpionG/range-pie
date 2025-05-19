@@ -1,3 +1,38 @@
+# Source files (only dist/ should be published)
+src/
+
+# Test files
 test/
+
+# TypeScript config files
+tsconfig.json
+
+# Development config files
 .gitignore
+.prettierrc
 jest.config.js
+.github/
+.vscode/
+
+# Type declaration source files (the generated ones in dist/ will be published)
+types/
+
+# CI files
+.travis.yml
+.gitlab-ci.yml
+
+# Editor files
+.editorconfig
+
+# Misc
+*.log
+.DS_Store
+
+# Documentation source
+docs/
+
+# Keep examples in the package for users
+# examples/
+
+# Source maps
+*.map
