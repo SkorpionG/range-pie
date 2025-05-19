@@ -55,8 +55,10 @@ npm install range-pie
 ### JavaScript
 
 ```javascript
-// CommonJS
-const { PyRange } = require('range-pie');
+// CommonJS - Both import styles are supported
+const { PyRange } = require('range-pie');  // Named import style
+// OR
+const PyRange = require('range-pie');     // Default import style
 
 // Create a range from 0 to 5
 const range = new PyRange(5);
@@ -74,8 +76,10 @@ console.log([...range3]); // [0, 2, 4, 6, 8]
 ### TypeScript
 
 ```typescript
-// ES Modules
-import { PyRange } from 'range-pie';
+// ES Modules - Both import styles are supported
+import { PyRange } from 'range-pie';  // Named import style
+// OR
+import PyRange from 'range-pie';      // Default import style
 
 // Create a range from 0 to 5
 const range = new PyRange(5);

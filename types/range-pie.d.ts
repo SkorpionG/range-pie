@@ -1,19 +1,22 @@
-declare module 'range-pie' {
+declare module "range-pie" {
   export class PyRange implements Iterable<number> {
     constructor(...args: number[]);
-    
+
     readonly length: number;
     readonly start: number;
     readonly stop: number;
     readonly step: number;
-    
+
     at(index: number): number;
     toString(): string;
     toArray(): number[];
-    
+
     map<T>(callback: (value: number, index: number, range: PyRange) => T): T[];
     filter(callback: (value: number, index: number, range: PyRange) => boolean): number[];
-    reduce<T>(callback: (accumulator: T, value: number, index: number, range: PyRange) => T, initialValue?: T): T;
+    reduce<T>(
+      callback: (accumulator: T, value: number, index: number, range: PyRange) => T,
+      initialValue?: T
+    ): T;
     some(callback: (value: number, index: number, range: PyRange) => boolean): boolean;
     every(callback: (value: number, index: number, range: PyRange) => boolean): boolean;
     find(callback: (value: number, index: number, range: PyRange) => boolean): number | undefined;
@@ -24,10 +27,10 @@ declare module 'range-pie' {
     indexOf(value: any): number;
     lastIndexOf(value: any): number;
     reverse(): PyRange;
-    
+
     [Symbol.iterator](): Iterator<number>;
     asProxy(): any;
   }
-  
+
   export default PyRange;
 }
