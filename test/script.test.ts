@@ -106,6 +106,20 @@ describe("PyRange", () => {
       const rangeNeg = new PyRange(5, 1, -1); // [5,4,3,2]
       expect(rangeNeg.pop()).toBe(2);
       expect([...rangeNeg]).toEqual([5, 4, 3]);
+
+      // Test popping from an empty range
+      const emptyRange = new PyRange(0); // Or new PyRange(5, 5) or similar
+      expect(emptyRange.pop()).toBeUndefined();
+      expect(emptyRange.length).toBe(0);
+      expect([...emptyRange]).toEqual([]);
+
+      // Test popping until empty
+      const singleElementRange = new PyRange(1, 2); // Represents [1]
+      expect(singleElementRange.pop()).toBe(1);
+      expect(singleElementRange.length).toBe(0);
+      expect([...singleElementRange]).toEqual([]);
+      expect(singleElementRange.pop()).toBeUndefined(); // Pop again from now empty range
+      expect(singleElementRange.length).toBe(0);
     });
   });
 
