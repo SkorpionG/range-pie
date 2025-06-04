@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "description": "A TypeScript class that simulates Python's range function, combined with several useful JavaScript array methods.",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
@@ -18,11 +19,13 @@
   "scripts": {
     "build": "tsc",
     "build:prod": "tsc -p tsconfig.prod.json",
-    "prepublishOnly": "npm run build:prod",
+    "build:watch": "tsc --watch",
+    "prepublishOnly": "npm run build:prod && npm run test",
     "test": "jest",
+    "test:watch": "jest --watch",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.{ts,js}\" \"test/**/*.{ts,js}\" \"examples/**/*.{ts,js}\" \"types/**/*.{ts,js,json}\" \"*.{js,json}\"",
-    "check-format": "prettier --check \"src/**/*.{ts,js}\" \"test/**/*.{ts,js}\" \"examples/**/*.{ts,js}\" \"types/**/*.{ts,js,json}\" \"*.{js,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js}\" \"test/**/*.{ts,js}\" \"examples/**/*.{ts,js}\" \"types/**/*.{ts,js,json}\" \"*.{js,json}\"",
     "example:basic": "node examples/basic-usage.js",
     "example:array": "node examples/array-methods.js",
     "example:advanced": "node examples/advanced-usage.js",
