@@ -352,6 +352,29 @@ class PyRange implements Iterable<number> {
   }
 
   /**
+   * Removes the last element from the range and returns it.
+   *
+   * This method behaves similarly to `Array.prototype.pop`. It decreases the
+   * `stop` value by the step size, shortens the range length by one, and returns
+   * the removed value. If the range is empty, `undefined` is returned and the
+   * range remains unchanged.
+   *
+   * @returns {number|undefined} The removed last value, or `undefined` if the
+   * range is empty.
+   */
+  pop(): number | undefined {
+    if (this._length === 0) {
+      return undefined;
+    }
+
+    const lastValue = this.at(this._length - 1);
+    this._stop -= this._step;
+    this._length -= 1;
+
+    return lastValue;
+  }
+
+  /**
    * Reverses the order of the elements in this range, returning a new PyRange object.
    * @returns {PyRange} A new PyRange object with the elements in reverse order.
    */
