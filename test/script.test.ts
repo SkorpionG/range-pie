@@ -97,6 +97,16 @@ describe("PyRange", () => {
       expect(range.indexOf(6)).toBe(-1);
       expect(range.lastIndexOf(3)).toBe(2);
     });
+
+    test("pop() 方法", () => {
+      const rangePop = new PyRange(1, 5); // [1,2,3,4]
+      expect(rangePop.pop()).toBe(4);
+      expect([...rangePop]).toEqual([1, 2, 3]);
+
+      const rangeNeg = new PyRange(5, 1, -1); // [5,4,3,2]
+      expect(rangeNeg.pop()).toBe(2);
+      expect([...rangeNeg]).toEqual([5, 4, 3]);
+    });
   });
 
   // 迭代器測試

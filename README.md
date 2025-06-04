@@ -29,6 +29,7 @@ A TypeScript/JavaScript library that brings Python's range functionality to Java
   - [includes()](#includes)
   - [indexOf()](#indexof)
   - [lastIndexOf()](#lastindexof)
+  - [pop()](#pop)
   - [reverse()](#reverse)
 
 - [Advanced Usage](#advanced-usage)
@@ -291,6 +292,18 @@ It works the same as [**`Array.prototype.lastIndexOf`**](https://developer.mozil
 const range = new PyRange(1, 5, 1);  // [1, 2, 3, 4]
 console.log(range.lastIndexOf(3));    // 2
 console.log(range.lastIndexOf(5));    // -1
+```
+
+### pop()
+
+Similar to [**`Array.prototype.pop`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop),
+this method removes the last value from the range, shortens the range and
+returns that value.
+
+```javascript
+const range = new PyRange(1, 5);  // [1, 2, 3, 4]
+console.log(range.pop());  // 4
+console.log([...range]);   // [1, 2, 3]
 ```
 
 ### reverse()
