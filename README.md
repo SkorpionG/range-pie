@@ -30,6 +30,7 @@ A TypeScript/JavaScript library that brings Python's range functionality to Java
   - [indexOf()](#indexof)
   - [lastIndexOf()](#lastindexof)
   - [pop()](#pop)
+  - [slice()](#slice)
   - [reverse()](#reverse)
 
 - [Advanced Usage](#advanced-usage)
@@ -304,6 +305,18 @@ returns that value.
 const range = new PyRange(1, 5);  // [1, 2, 3, 4]
 console.log(range.pop());  // 4
 console.log([...range]);   // [1, 2, 3]
+```
+
+### slice()
+
+This method behaves similarly to [**`Array.prototype.slice`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice).
+It modifies the range in place by updating the `start`, `stop` and `length`
+according to the provided indices.
+
+```javascript
+const range = new PyRange(0, 10);  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+range.slice(2, 5);
+console.log([...range]); // [2, 3, 4]
 ```
 
 ### reverse()

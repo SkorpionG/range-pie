@@ -71,3 +71,7 @@ range.forEach((x) => {
 const popped = range.pop();
 console.log("pop():", popped); // 9
 console.log("After pop:", [...range]); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+// Slice: Keep a subset of the range
+range.slice(2, 5);
+console.log("slice(2, 5):", [...range]); // [3, 4, 5]
