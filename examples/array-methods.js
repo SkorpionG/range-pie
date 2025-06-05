@@ -66,3 +66,12 @@ range.forEach((x) => {
 // 3 is divisible by 3
 // 6 is divisible by 3
 // 9 is divisible by 3
+
+// Pop: Remove the last value
+const popped = range.pop();
+console.log("pop():", popped); // 9
+console.log("After pop:", [...range]); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+// Slice: Keep a subset of the range
+range.slice(2, 5);
+console.log("slice(2, 5):", [...range]); // [3, 4, 5]

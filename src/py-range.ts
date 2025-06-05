@@ -352,6 +352,84 @@ class PyRange implements Iterable<number> {
   }
 
   /**
+   * Removes the last element from the range and returns it.
+   *
+   * This method behaves similarly to `Array.prototype.pop`. It decreases the
+   * `stop` value by the step size, shortens the range length by one, and returns
+   * the removed value. If the range is empty, `undefined` is returned and the
+   * range remains unchanged.
+   *
+   * @returns {number|undefined} The removed last value, or `undefined` if the
+   * range is empty.
+   */
+  pop(): number | undefined {
+    if (this._length === 0) {
+      return undefined;
+    }
+
+    const lastValue = this.at(this._length - 1);
+    this._stop -= this._step;
+    this._length -= 1;
+
+    return lastValue;
+  }
+
+  /**
+   * Changes the bounds of the range according to the provided indices.
+   *
+   * This method behaves similarly to `Array.prototype.slice`. It updates the
+   * `start`, `stop` and `length` values based on the given `begin` and `end`
+   * parameters. Negative indices are supported. The range is modified in place
+   * and the same instance is returned.
+   *
+   * @param {number} [begin=0] - Zero-based index at which to begin slicing.
+   * @param {number} [end=this.length] - Zero-based index at which to end slicing
+   *   (exclusive).
+   * @returns {PyRange} The current PyRange instance after slicing.
+   */
+  slice(begin: number = 0, end: number = this._length): PyRange {
+    if (typeof begin !== "number" || typeof end !== "number") {
+      throw new TypeError("Indices must be numbers");
+    }
+    if (!Number.isInteger(begin) || !Number.isInteger(end)) {
+      throw new TypeError("Indices must be integers");
+    }
+
+    const len = this._length;
+    let startIdx = begin;
+    let endIdx = end;
+
+    if (startIdx < 0) {
+      startIdx = Math.max(len + startIdx, 0);
+    } else {
+      startIdx = Math.min(startIdx, len);
+    }
+
+    if (endIdx < 0) {
+      endIdx = Math.max(len + endIdx, 0);
+    } else {
+      endIdx = Math.min(endIdx, len);
+    }
+
+    const origStart = this._start;
+    const step = this._step;
+
+    if (startIdx >= endIdx) {
+      const empty = origStart + startIdx * step;
+      this._start = empty;
+      this._stop = empty;
+      this._length = 0;
+      return this;
+    }
+
+    this._start = origStart + startIdx * step;
+    this._stop = origStart + endIdx * step;
+    this._length = endIdx - startIdx;
+
+    return this;
+  }
+
+  /**
    * Reverses the order of the elements in this range, returning a new PyRange object.
    * @returns {PyRange} A new PyRange object with the elements in reverse order.
    */
