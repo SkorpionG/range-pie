@@ -369,8 +369,7 @@ class PyRange implements Iterable<number> {
 
     const lastValue = this.at(this._length - 1);
     this._stop -= this._step;
-    this._length -= 1;
-
+    this._length--;
     return lastValue;
   }
 
