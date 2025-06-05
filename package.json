@@ -13,8 +13,12 @@
     }
   },
   "files": [
-    "dist",
-    "examples"
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "!dist/**/*.map",
+    "examples/*.js",
+    "examples/*.ts",
+    "!examples/methods"
   ],
   "scripts": {
     "build": "tsc",
@@ -31,7 +35,8 @@
     "example:basic": "node examples/basic-usage.js",
     "example:array": "node examples/array-methods.js",
     "example:advanced": "node examples/advanced-usage.js",
-    "example:ts": "ts-node examples/typescript-usage.ts"
+    "example:ts": "ts-node examples/typescript-usage.ts",
+    "example:methods": "for file in examples/methods/*.ts; do echo \"\\n=== Running $file ===\"; ts-node \"$file\"; done"
   },
   "keywords": [
     "range",

@@ -45,6 +45,7 @@ A TypeScript/JavaScript library that brings Python's range functionality to Java
   - [Example Files](#example-files)
     - [Running the Examples](#running-the-examples)
     - [Available Examples](#available-examples)
+    - [Method-Specific Demonstrations](#method-specific-demonstrations)
 
 ## Installation
 
@@ -310,13 +311,18 @@ console.log([...range]);   // [1, 2, 3]
 ### slice()
 
 This method behaves similarly to [**`Array.prototype.slice`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice).
-It modifies the range in place by updating the `start`, `stop` and `length`
-according to the provided indices.
+It returns a new PyRange instance containing elements from the specified indices.
+The original range is not modified.
 
 ```javascript
 const range = new PyRange(0, 10);  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-range.slice(2, 5);
-console.log([...range]); // [2, 3, 4]
+const sliced = range.slice(2, 5);
+console.log([...sliced]); // [2, 3, 4]
+console.log([...range]);  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] (unchanged)
+
+// Negative indices are supported
+const lastThree = range.slice(-3);
+console.log([...lastThree]); // [7, 8, 9]
 ```
 
 ### reverse()
@@ -445,3 +451,14 @@ ts-node node_modules/range-pie/examples/typescript-usage.ts
 - **array-methods.js**: Demonstrates all array-like methods
 - **advanced-usage.js**: Covers advanced features like method chaining and proxy usage
 - **typescript-usage.ts**: Shows TypeScript-specific features and type safety
+
+#### Method-Specific Demonstrations
+
+For detailed demonstrations of individual methods, see the `examples/methods/` folder. Each method has its own comprehensive demo file with detailed explanations and use cases.
+
+```bash
+# Run all method demonstrations
+npm run example:methods
+```
+
+For instructions on running individual method demos and more details, see the [README in the examples/methods folder](examples/methods/README.md).

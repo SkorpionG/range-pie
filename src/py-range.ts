@@ -374,17 +374,16 @@ class PyRange implements Iterable<number> {
   }
 
   /**
-   * Changes the bounds of the range according to the provided indices.
+   * Returns a new PyRange instance containing elements from the specified indices.
    *
-   * This method behaves similarly to `Array.prototype.slice`. It updates the
-   * `start`, `stop` and `length` values based on the given `begin` and `end`
-   * parameters. Negative indices are supported. The range is modified in place
-   * and the same instance is returned.
+   * This method behaves similarly to `Array.prototype.slice`. It creates a new
+   * PyRange with elements from `begin` to `end` (exclusive) based on the given
+   * parameters. Negative indices are supported. The original range is not modified.
    *
    * @param {number} [begin=0] - Zero-based index at which to begin slicing.
    * @param {number} [end=this.length] - Zero-based index at which to end slicing
    *   (exclusive).
-   * @returns {PyRange} The current PyRange instance after slicing.
+   * @returns {PyRange} A new PyRange instance containing the sliced elements.
    */
   slice(begin: number = 0, end: number = this._length): PyRange {
     if (typeof begin !== "number" || typeof end !== "number") {
@@ -414,18 +413,18 @@ class PyRange implements Iterable<number> {
     const step = this._step;
 
     if (startIdx >= endIdx) {
-      const empty = origStart + startIdx * step;
-      this._start = empty;
-      this._stop = empty;
-      this._length = 0;
-      return this;
+      // Return an empty range
+      const emptyStart = origStart + startIdx * step;
+      const result = new PyRange(emptyStart, emptyStart, step);
+      return result;
     }
 
-    this._start = origStart + startIdx * step;
-    this._stop = origStart + endIdx * step;
-    this._length = endIdx - startIdx;
+    const newStart = origStart + startIdx * step;
+    const newStop = origStart + endIdx * step;
 
-    return this;
+    // Create a new PyRange instance with the calculated bounds
+    const result = new PyRange(newStart, newStop, step);
+    return result;
   }
 
   /**
