@@ -76,3 +76,15 @@ console.log("After pop:", [...range]); // [1, 2, 3, 4, 5, 6, 7, 8]
 const sliced = range.slice(2, 5);
 console.log("slice(2, 5):", [...sliced]); // [3, 4, 5]
 console.log("Original after slice:", [...range]); // [1, 2, 3, 4, 5, 6, 7, 8] (unchanged)
+
+// Entries: Iterate over index/value pairs
+console.log("\nentries() example:");
+for (const [i, v] of range.entries()) {
+  if (i < 3) {
+    console.log(i, v);
+  }
+}
+
+// Keys and values helpers
+console.log("keys():", [...range.keys()].slice(0, 3)); // [0,1,2]
+console.log("values():", [...range.values()].slice(0, 3)); // [1,2,3]

@@ -5,6 +5,9 @@ This folder contains detailed demonstrations and usage examples for various PyRa
 ## File Structure
 
 - `slice-demo.ts` - Detailed demonstration of the `slice()` method, showing how to create subsets of ranges
+- `entries-demo.ts` - Demonstrates the `entries()` method
+- `keys-demo.ts` - Demonstrates the `keys()` method
+- `values-demo.ts` - Demonstrates the `values()` method
 
 ## Running Demonstrations
 
@@ -36,3 +39,24 @@ node dist/examples/methods/slice-demo.js
 - **Behavior**: Similar to JavaScript's `Array.prototype.slice()`
 - **Return Value**: New PyRange instance
 - **Demo File**: `slice-demo.ts`
+
+### entries()
+
+- **Purpose**: Iterate over `[index, value]` pairs
+- **Behavior**: Similar to JavaScript's `Array.prototype.entries()`
+- **Return Value**: Iterable iterator of pairs
+- **Demo File**: `entries-demo.ts`
+
+### keys()
+
+- **Purpose**: Iterate over the indices of the range
+- **Behavior**: Mirrors `Array.prototype.keys()`
+- **Return Value**: Iterable iterator of indices
+- **Demo File**: `keys-demo.ts`
+
+### values()
+
+- **Purpose**: Iterate over the values of the range
+- **Behavior**: Equivalent to `Array.prototype.values()`
+- **Return Value**: Iterator of values
+- **Demo File**: `values-demo.ts`

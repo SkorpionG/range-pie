@@ -439,6 +439,46 @@ class PyRange implements Iterable<number> {
   }
 
   /**
+   * Returns an iterator of `[index, value]` pairs for each element in the range.
+   *
+   * This method behaves like `Array.prototype.entries()` and is useful for
+   * iterating over both the index and value of each item.
+   *
+   * @returns {IterableIterator<[number, number]>} Iterator of index/value pairs.
+   */
+  *entries(): IterableIterator<[number, number]> {
+    for (let i = 0; i < this._length; i++) {
+      yield [i, this.at(i)];
+    }
+  }
+
+  /**
+   * Returns an iterator of the indices for each element in the range.
+   *
+   * Works the same as `Array.prototype.keys()`.
+   *
+   * @returns {IterableIterator<number>} Iterator of indices.
+   */
+  *keys(): IterableIterator<number> {
+    for (let i = 0; i < this._length; i++) {
+      yield i;
+    }
+  }
+
+  /**
+   * Returns an iterator of the values in the range.
+   *
+   * Equivalent to `Array.prototype.values()`.
+   *
+   * @returns {IterableIterator<number>} Iterator of values.
+   */
+  *values(): IterableIterator<number> {
+    for (let i = 0; i < this._length; i++) {
+      yield this.at(i);
+    }
+  }
+
+  /**
    * Implements the iterable protocol for this range.
    * @returns {Iterator<number>} An iterator for this range.
    */
