@@ -32,6 +32,9 @@ A TypeScript/JavaScript library that brings Python's range functionality to Java
   - [pop()](#pop)
   - [slice()](#slice)
   - [reverse()](#reverse)
+  - [entries()](#entries)
+  - [keys()](#keys)
+  - [values()](#values)
 
 - [Advanced Usage](#advanced-usage)
 
@@ -339,6 +342,41 @@ console.log([...reversed]);      // [4, 3, 2, 1]
 const rangeWithStep = new PyRange(1, 10, 2);  // [1, 3, 5, 7, 9]
 const reversedStep = rangeWithStep.reverse(); // [9, 7, 5, 3, 1]
 console.log([...reversedStep]);
+```
+
+### entries()
+
+It works the same as [**`Array.prototype.entries`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).
+It returns an iterator of `[index, value]` pairs.
+
+```javascript
+const range = new PyRange(1, 4);  // [1, 2, 3]
+for (const [index, value] of range.entries()) {
+  console.log(index, value);
+}
+// 0 1
+// 1 2
+// 2 3
+```
+
+### keys()
+
+It works the same as [**`Array.prototype.keys`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).
+It returns an iterator of the indices of the range.
+
+```javascript
+const range = new PyRange(3);  // [0, 1, 2]
+console.log([...range.keys()]); // [0, 1, 2]
+```
+
+### values()
+
+It works the same as [**`Array.prototype.values`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).
+It returns an iterator of the values in the range.
+
+```javascript
+const range = new PyRange(3);  // [0, 1, 2]
+console.log([...range.values()]); // [0, 1, 2]
 ```
 
 ## Advanced Usage

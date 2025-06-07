@@ -29,6 +29,9 @@ declare module "range-pie" {
     pop(): number | undefined;
     slice(begin?: number, end?: number): PyRange;
     reverse(): PyRange;
+    entries(): IterableIterator<[number, number]>;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<number>;
 
     [Symbol.iterator](): Iterator<number>;
     asProxy(): any;
