@@ -25,4 +25,9 @@ describe("PyRange", () => {
     expect(range.stop).toBe(10);
     expect(range.step).toBe(2);
   });
+
+  test("empty range", () => {
+    const range = new PyRange(0);
+    expect([...range.entries()]).toEqual([]);
+  });
 });

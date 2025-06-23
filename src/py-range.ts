@@ -473,9 +473,7 @@ class PyRange implements Iterable<number> {
    * @returns {IterableIterator<number>} Iterator of values.
    */
   *values(): IterableIterator<number> {
-    for (let i = 0; i < this._length; i++) {
-      yield this.at(i);
-    }
+    yield* this;
   }
 
   /**

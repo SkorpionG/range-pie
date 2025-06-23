@@ -77,6 +77,10 @@ console.log([...range2]); // [2, 3, 4, 5, 6, 7]
 // Create a range with step
 const range3 = new PyRange(0, 10, 2);
 console.log([...range3]); // [0, 2, 4, 6, 8]
+
+// Create a reverse range
+const range4 = new PyRange(5, 2);
+console.log([...range4]); // [5, 4, 3]
 ```
 
 ### TypeScript
