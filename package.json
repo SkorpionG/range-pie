@@ -1,6 +1,6 @@
 {
   "name": "range-pie",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "A TypeScript class that simulates Python's range function, combined with several useful JavaScript array methods.",
   "main": "dist/index.js",
   "module": "dist/index.js",
