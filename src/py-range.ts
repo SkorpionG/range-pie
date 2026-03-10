@@ -128,7 +128,7 @@ class PyRange implements Iterable<number> {
    * @param {Function} cb - The callback to validate.
    * @throws {TypeError} If the callback is not a function.
    */
-  private static validateCb(cb: Function): void {
+  private static validateCb(cb: unknown): asserts cb is (...args: unknown[]) => unknown {
     if (typeof cb !== "function") {
       throw new TypeError("Callback must be a function");
     }
@@ -319,7 +319,7 @@ class PyRange implements Iterable<number> {
    * @param {any} value - The value to search for.
    * @returns {boolean} True if the value is present, false otherwise.
    */
-  includes(value: any): boolean {
+  includes(value: unknown): boolean {
     return this.some((item) => item === value);
   }
 
@@ -328,7 +328,7 @@ class PyRange implements Iterable<number> {
    * @param {any} value - The value to search for.
    * @returns {number} The index of the value, or -1 if it is not present.
    */
-  indexOf(value: any): number {
+  indexOf(value: unknown): number {
     for (let i = 0; i < this._length; i++) {
       if (this.at(i) === value) {
         return i;
@@ -342,7 +342,7 @@ class PyRange implements Iterable<number> {
    * @param {any} value - The value to search for.
    * @returns {number} The index of the last occurrence of the value, or -1 if it is not present.
    */
-  lastIndexOf(value: any): number {
+  lastIndexOf(value: unknown): number {
     for (let i = this._length - 1; i >= 0; i--) {
       if (this.at(i) === value) {
         return i;
@@ -434,7 +434,7 @@ class PyRange implements Iterable<number> {
   reverse(): PyRange {
     const result = new PyRange(this._stop, this._start, -this._step);
     // Force the length to be the same as the original range
-    (result as any)._length = this._length;
+    result._length = this._length;
     return result;
   }
 
@@ -504,20 +504,20 @@ class PyRange implements Iterable<number> {
    * This proxy enables accessing range elements via array-like indexing.
    * If the property is a number, it will return the element at that index.
    *
-   * @returns {any} A proxy for the PyRange instance.
+   * @returns {PyRange & { [key: number]: number }} A proxy for the PyRange instance.
    */
-  asProxy(): any {
+  asProxy(): PyRange & { [key: number]: number } {
     return new Proxy(this, {
-      get(target: PyRange, prop: string | symbol): any {
+      get(target: PyRange, prop: string | symbol, receiver: object): unknown {
         if (typeof prop === "symbol") {
-          return (target as any)[prop];
+          return Reflect.get(target, prop, receiver);
         }
         if (!isNaN(Number(prop))) {
           return target.at(parseInt(String(prop), 10));
         }
-        return (target as any)[prop];
+        return Reflect.get(target, prop, receiver);
       },
-    });
+    }) as PyRange & { [key: number]: number };
   }
 }
 

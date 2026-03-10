@@ -129,6 +129,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Mac system files
 .DS_Store
 
 # TypeScript compiled JavaScript files
@@ -137,3 +138,6 @@ dist
 
 # Keep configuration JavaScript files
 !jest.config.js
+
+# Misc
+.specstory

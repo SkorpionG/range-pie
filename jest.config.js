@@ -1,6 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 export default {
   preset: "ts-jest",
+  watchman: false,
   testEnvironment: "node",
   testMatch: [
     "**/__tests__/**/*.test.ts",

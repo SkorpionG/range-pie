@@ -2,16 +2,17 @@
 
 A TypeScript/JavaScript library that brings Python's range functionality to JavaScript, enhanced with familiar array methods. This lightweight utility provides a seamless way to work with numeric sequences while maintaining JavaScript's functional programming paradigm. Fully typed for TypeScript users while remaining compatible with JavaScript projects.
 
+[![npm version](https://img.shields.io/npm/v/range-pie.svg)](https://www.npmjs.com/package/range-pie)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 ## Table of Contents
 
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
-
   - [JavaScript](#javascript)
   - [TypeScript](#typescript)
 
 - [API Reference](#api-reference)
-
   - [Constructor Options](#constructor-options)
   - [Properties](#properties)
   - [at()](#at)
@@ -37,12 +38,10 @@ A TypeScript/JavaScript library that brings Python's range functionality to Java
   - [values()](#values)
 
 - [Advanced Usage](#advanced-usage)
-
   - [Iteration](#iteration)
   - [Proxy Access](#proxy-access)
 
 - [Examples](#examples)
-
   - [Methods chaining](#methods-chaining)
   - [Using as Array-like Object](#using-as-array-like-object)
   - [Example Files](#example-files)
@@ -62,9 +61,9 @@ npm install range-pie
 
 ```javascript
 // CommonJS - Both import styles are supported
-const { PyRange } = require('range-pie');  // Named import style
+const { PyRange } = require("range-pie"); // Named import style
 // OR
-const PyRange = require('range-pie');     // Default import style
+const PyRange = require("range-pie"); // Default import style
 
 // Create a range from 0 to 5
 const range = new PyRange(5);
@@ -87,20 +86,20 @@ console.log([...range4]); // [5, 4, 3]
 
 ```typescript
 // ES Modules - Both import styles are supported
-import { PyRange } from 'range-pie';  // Named import style
+import { PyRange } from "range-pie"; // Named import style
 // OR
-import PyRange from 'range-pie';      // Default import style
+import PyRange from "range-pie"; // Default import style
 
 // Create a range from 0 to 5
 const range = new PyRange(5);
 console.log([...range]); // [0, 1, 2, 3, 4]
 
 // Type-safe operations
-const doubledValues: number[] = range.map(x => x * 2);
+const doubledValues: number[] = range.map((x) => x * 2);
 console.log(doubledValues); // [0, 2, 4, 6, 8]
 
 // Type inference works with generics
-const stringValues: string[] = range.map(x => `Value: ${x}`);
+const stringValues: string[] = range.map((x) => `Value: ${x}`);
 console.log(stringValues); // ['Value: 0', 'Value: 1', 'Value: 2', 'Value: 3', 'Value: 4']
 ```
 
@@ -109,9 +108,9 @@ console.log(stringValues); // ['Value: 0', 'Value: 1', 'Value: 2', 'Value: 3', '
 ### Constructor Options
 
 ```javascript
-new PyRange(stop)               // 0 to stop-1
-new PyRange(start, stop)        // start to stop-1
-new PyRange(start, stop, step)  // start to stop-1 with step
+new PyRange(stop); // 0 to stop-1
+new PyRange(start, stop); // start to stop-1
+new PyRange(start, stop, step); // start to stop-1 with step
 ```
 
 - **PyRange(stop:number)**
@@ -148,9 +147,9 @@ console.log(PyRange(2, -10, -1));
 
 ```javascript
 const range = new PyRange(1, 10, 2);
-console.log(range.start);  // 1
-console.log(range.stop);   // 10
-console.log(range.step);   // 2
+console.log(range.start); // 1
+console.log(range.stop); // 10
+console.log(range.step); // 2
 console.log(range.length); // 5
 ```
 
@@ -159,9 +158,9 @@ console.log(range.length); // 5
 The 'at' method accepts a number as argument to gets the value at the specified index in a range. Generate a RangeError if the index is out of range.
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.at(0));  // 1
-console.log(range.at(2));  // 3
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.at(0)); // 1
+console.log(range.at(2)); // 3
 console.log(range.at(-1)); // RangeError
 ```
 
@@ -188,8 +187,8 @@ console.log(range.toArray()); // [1, 2, 3]
 It works the same as [**`Array.prototype.map`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 
 ```javascript
-const range = new PyRange(1, 4);  // [1, 2, 3]
-console.log(range.map(x => x * 2));  // [2, 4, 6]
+const range = new PyRange(1, 4); // [1, 2, 3]
+console.log(range.map((x) => x * 2)); // [2, 4, 6]
 ```
 
 ### filter()
@@ -197,8 +196,8 @@ console.log(range.map(x => x * 2));  // [2, 4, 6]
 It works the same as [**`Array.prototype.filter`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 ```javascript
-const range = new PyRange(1, 6);  // [1, 2, 3, 4, 5]
-console.log(range.filter(x => x % 2 === 0));  // [2, 4]
+const range = new PyRange(1, 6); // [1, 2, 3, 4, 5]
+console.log(range.filter((x) => x % 2 === 0)); // [2, 4]
 ```
 
 ### reduce()
@@ -206,9 +205,9 @@ console.log(range.filter(x => x % 2 === 0));  // [2, 4]
 It works the same as [**`Array.prototype.reduce`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 
 ```javascript
-const range = new PyRange(1, 4);  // [1, 2, 3]
+const range = new PyRange(1, 4); // [1, 2, 3]
 const sum = range.reduce((acc, curr) => acc + curr, 0);
-console.log(sum);  // 6
+console.log(sum); // 6
 ```
 
 ### some()
@@ -216,9 +215,9 @@ console.log(sum);  // 6
 It works the same as [**`Array.prototype.some`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.some(x => x > 3));  // true
-console.log(range.some(x => x < 0));  // false
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.some((x) => x > 3)); // true
+console.log(range.some((x) => x < 0)); // false
 ```
 
 ### every()
@@ -226,9 +225,9 @@ console.log(range.some(x => x < 0));  // false
 It works the same as [**`Array.prototype.every`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.every(x => x > 0));  // true
-console.log(range.every(x => x > 2));  // false
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.every((x) => x > 0)); // true
+console.log(range.every((x) => x > 2)); // false
 ```
 
 ### find()
@@ -236,9 +235,9 @@ console.log(range.every(x => x > 2));  // false
 It works the same as [**`Array.prototype.find`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.find(x => x > 2));  // 3
-console.log(range.find(x => x > 5));  // undefined
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.find((x) => x > 2)); // 3
+console.log(range.find((x) => x > 5)); // undefined
 ```
 
 ### findIndex()
@@ -246,9 +245,9 @@ console.log(range.find(x => x > 5));  // undefined
 It works the same as [**`Array.prototype.findIndex`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.findIndex(x => x > 2));  // 2
-console.log(range.findIndex(x => x > 5));  // -1
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.findIndex((x) => x > 2)); // 2
+console.log(range.findIndex((x) => x > 5)); // -1
 ```
 
 ### findLastIndex()
@@ -256,9 +255,9 @@ console.log(range.findIndex(x => x > 5));  // -1
 It works the same as [**`Array.prototype.findLastIndex`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.findLastIndex(x => x > 2));  // 3
-console.log(range.findLastIndex(x => x > 5));  // -1
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.findLastIndex((x) => x > 2)); // 3
+console.log(range.findLastIndex((x) => x > 5)); // -1
 ```
 
 ### forEach()
@@ -266,8 +265,8 @@ console.log(range.findLastIndex(x => x > 5));  // -1
 It works the same as [**`Array.prototype.forEach`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
 ```javascript
-const range = new PyRange(1, 4);  // [1, 2, 3]
-range.forEach(x => console.log(x));  
+const range = new PyRange(1, 4); // [1, 2, 3]
+range.forEach((x) => console.log(x));
 // 1
 // 2
 // 3
@@ -278,9 +277,9 @@ range.forEach(x => console.log(x));
 It works the same as [**`Array.prototype.includes`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.includes(3));  // true
-console.log(range.includes(5));  // false
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.includes(3)); // true
+console.log(range.includes(5)); // false
 ```
 
 ### indexOf()
@@ -288,9 +287,9 @@ console.log(range.includes(5));  // false
 It works the same as [**`Array.prototype.indexOf`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.indexOf(3));    // 2
-console.log(range.indexOf(5));    // -1
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.indexOf(3)); // 2
+console.log(range.indexOf(5)); // -1
 ```
 
 ### lastIndexOf()
@@ -298,9 +297,9 @@ console.log(range.indexOf(5));    // -1
 It works the same as [**`Array.prototype.lastIndexOf`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)
 
 ```javascript
-const range = new PyRange(1, 5, 1);  // [1, 2, 3, 4]
-console.log(range.lastIndexOf(3));    // 2
-console.log(range.lastIndexOf(5));    // -1
+const range = new PyRange(1, 5, 1); // [1, 2, 3, 4]
+console.log(range.lastIndexOf(3)); // 2
+console.log(range.lastIndexOf(5)); // -1
 ```
 
 ### pop()
@@ -310,9 +309,9 @@ this method removes the last value from the range, shortens the range and
 returns that value.
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log(range.pop());  // 4
-console.log([...range]);   // [1, 2, 3]
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log(range.pop()); // 4
+console.log([...range]); // [1, 2, 3]
 ```
 
 ### slice()
@@ -322,10 +321,10 @@ It returns a new PyRange instance containing elements from the specified indices
 The original range is not modified.
 
 ```javascript
-const range = new PyRange(0, 10);  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const range = new PyRange(0, 10); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const sliced = range.slice(2, 5);
 console.log([...sliced]); // [2, 3, 4]
-console.log([...range]);  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] (unchanged)
+console.log([...range]); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] (unchanged)
 
 // Negative indices are supported
 const lastThree = range.slice(-3);
@@ -337,13 +336,13 @@ console.log([...lastThree]); // [7, 8, 9]
 It works the same as [**`Array.prototype.reverse`**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)
 
 ```javascript
-const range = new PyRange(1, 5);  // [1, 2, 3, 4]
-console.log([...range]);          // [1, 2, 3, 4]
+const range = new PyRange(1, 5); // [1, 2, 3, 4]
+console.log([...range]); // [1, 2, 3, 4]
 
 const reversed = range.reverse(); // [4, 3, 2, 1]
-console.log([...reversed]);      // [4, 3, 2, 1]
+console.log([...reversed]); // [4, 3, 2, 1]
 
-const rangeWithStep = new PyRange(1, 10, 2);  // [1, 3, 5, 7, 9]
+const rangeWithStep = new PyRange(1, 10, 2); // [1, 3, 5, 7, 9]
 const reversedStep = rangeWithStep.reverse(); // [9, 7, 5, 3, 1]
 console.log([...reversedStep]);
 ```
@@ -354,7 +353,7 @@ It works the same as [**`Array.prototype.entries`**](https://developer.mozilla.o
 It returns an iterator of `[index, value]` pairs.
 
 ```javascript
-const range = new PyRange(1, 4);  // [1, 2, 3]
+const range = new PyRange(1, 4); // [1, 2, 3]
 for (const [index, value] of range.entries()) {
   console.log(index, value);
 }
@@ -369,7 +368,7 @@ It works the same as [**`Array.prototype.keys`**](https://developer.mozilla.org/
 It returns an iterator of the indices of the range.
 
 ```javascript
-const range = new PyRange(3);  // [0, 1, 2]
+const range = new PyRange(3); // [0, 1, 2]
 console.log([...range.keys()]); // [0, 1, 2]
 ```
 
@@ -379,7 +378,7 @@ It works the same as [**`Array.prototype.values`**](https://developer.mozilla.or
 It returns an iterator of the values in the range.
 
 ```javascript
-const range = new PyRange(3);  // [0, 1, 2]
+const range = new PyRange(3); // [0, 1, 2]
 console.log([...range.values()]); // [0, 1, 2]
 ```
 
@@ -392,7 +391,7 @@ const range = new PyRange(3);
 
 // For...of loop
 for (const num of range) {
-    console.log(num); // 0, 1, 2
+  console.log(num); // 0, 1, 2
 }
 
 // Spread operator
@@ -425,13 +424,13 @@ This package is written in TypeScript and provides full type definitions for all
 const range = new PyRange(5);
 
 // TypeScript knows this is a number[]
-const numbers = range.map(x => x * 2);
+const numbers = range.map((x) => x * 2);
 
 // TypeScript knows this is a string[]
-const strings = range.map(x => `Number: ${x}`);
+const strings = range.map((x) => `Number: ${x}`);
 
 // TypeScript knows this is a boolean[]
-const booleans = range.map(x => x % 2 === 0);
+const booleans = range.map((x) => x % 2 === 0);
 ```
 
 ## Examples
@@ -440,9 +439,7 @@ const booleans = range.map(x => x % 2 === 0);
 
 ```javascript
 const range = new PyRange(1, 6);
-const squares = range
-    .filter(x => x % 2 === 0)
-    .map(x => x * x);
+const squares = range.filter((x) => x % 2 === 0).map((x) => x * x);
 console.log(squares); // [4, 16]
 ```
 

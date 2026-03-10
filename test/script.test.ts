@@ -5,7 +5,7 @@ describe("PyRange", () => {
   // 建構函式測試
   describe("constructor", () => {
     test("建構函式參數驗證", () => {
-      expect(() => new PyRange("1" as any)).toThrow(TypeError);
+      expect(() => new PyRange("1" as unknown as number)).toThrow(TypeError);
       expect(() => new PyRange(1.5)).toThrow(TypeError);
       expect(() => new PyRange(1, 5, 0)).toThrow("Step cannot be zero");
       expect(() => new PyRange()).toThrow("Invalid arguments count");
@@ -165,7 +165,7 @@ describe("PyRange", () => {
       const outOfBoundsSliced = outOfBounds.slice(10, 20);
       expect(outOfBoundsSliced.length).toBe(0);
 
-      expect(() => new PyRange(5).slice(null as any)).toThrow(TypeError);
+      expect(() => new PyRange(5).slice(null as unknown as number)).toThrow(TypeError);
       expect(() => new PyRange(5).slice(0, 1.5)).toThrow(TypeError);
     });
   });
