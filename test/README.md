@@ -14,7 +14,7 @@ This directory contains tests for the PyRange class and its methods.
 
 When adding tests for new methods, create a new test file in the `methods/` directory following this naming convention:
 
-```typescript
+```text
 test/methods/[methodName].test.ts
 ```
 
@@ -113,10 +113,10 @@ Beyond the core 13 standardized range types, additional tests should be included
 test("immutability - original range unchanged", () => {
   const range = new PyRange(1, 4);
   const originalValues = [...range];
-  
+
   // Use method under test
   const result = range.methodName();
-  
+
   // Verify original range is unchanged
   expect([...range]).toEqual(originalValues);
 });
@@ -124,7 +124,7 @@ test("immutability - original range unchanged", () => {
 test("iterator protocol", () => {
   const range = new PyRange(1, 4);
   const iterator = range.methodName();
-  
+
   expect(iterator.next().value).toBe(/* expected */);
   expect(iterator.next().done).toBe(false);
   // ... continue until done is true
@@ -132,20 +132,17 @@ test("iterator protocol", () => {
 
 test("parameter validation", () => {
   const range = new PyRange(5);
-  
+
   // Test invalid parameter types
-  expect(() => range.methodName("invalid" as unknown as number))
-    .toThrow(TypeError);
-  expect(() => range.methodName(1.5))
-    .toThrow(TypeError);
+  expect(() => range.methodName("invalid" as unknown as number)).toThrow(TypeError);
+  expect(() => range.methodName(1.5)).toThrow(TypeError);
 });
 
 test("comparison with Array.prototype.methodName", () => {
   const range = new PyRange(0, 5);
   const array = [0, 1, 2, 3, 4];
-  
-  expect([...range.methodName()])
-    .toEqual([...array.methodName()]);
+
+  expect([...range.methodName()]).toEqual([...array.methodName()]);
 });
 ```
 

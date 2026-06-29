@@ -1,3 +1,4 @@
+import { getDiverseRanges } from "../utils/array-compare";
 import { describe, test, expect } from "@jest/globals";
 import { PyRange } from "range-pie";
 
@@ -267,5 +268,17 @@ describe("PyRange slice method", () => {
 
     // Verify originals are unchanged
     expect([...range]).toEqual(array);
+  });
+  // ── Comprehensive Array Comparison ──────────────────────────────────────
+  test("comprehensive array comparison", () => {
+    for (const range of getDiverseRanges()) {
+      const arr = [...range];
+      expect([...range.slice()]).toEqual(arr.slice());
+      expect([...range.slice(1)]).toEqual(arr.slice(1));
+      expect([...range.slice(1, 3)]).toEqual(arr.slice(1, 3));
+      expect([...range.slice(-2)]).toEqual(arr.slice(-2));
+      expect([...range.slice(-3, -1)]).toEqual(arr.slice(-3, -1));
+      expect([...range.slice(99, 100)]).toEqual(arr.slice(99, 100));
+    }
   });
 });

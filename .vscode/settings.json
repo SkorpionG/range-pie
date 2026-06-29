@@ -1,0 +1,6 @@
+{
+  "specstory.cloudSync.enabled": "never",
+  "snyk.advanced.autoSelectOrganization": false,
+  "specstory.autoSave.enabled": false,
+  "specstory.helpUsImprove": false
+}

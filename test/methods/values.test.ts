@@ -1,3 +1,4 @@
+import { getDiverseRanges } from "../utils/array-compare";
 import { describe, test, expect } from "@jest/globals";
 import { PyRange } from "range-pie";
 
@@ -162,5 +163,12 @@ describe("PyRange values method", () => {
     ranges.forEach((range) => {
       expect([...range.values()]).toEqual([...range]);
     });
+  });
+  // ── Comprehensive Array Comparison ──────────────────────────────────────
+  test("comprehensive array comparison", () => {
+    for (const range of getDiverseRanges()) {
+      const arr = [...range];
+      expect([...range.values()]).toEqual([...arr.values()]);
+    }
   });
 });

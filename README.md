@@ -155,13 +155,14 @@ console.log(range.length); // 5
 
 ### at()
 
-The 'at' method accepts a number as argument to gets the value at the specified index in a range. Generate a RangeError if the index is out of range.
+The 'at' method accepts a number as argument to get the value at the specified index in a range. Returns `undefined` if the index is out of range, perfectly matching `Array.prototype.at`. Negative indices count backwards from the end of the range.
 
 ```javascript
 const range = new PyRange(1, 5); // [1, 2, 3, 4]
 console.log(range.at(0)); // 1
 console.log(range.at(2)); // 3
-console.log(range.at(-1)); // RangeError
+console.log(range.at(-1)); // 4 (negative index wraps from the end)
+console.log(range.at(10)); // undefined (out of bounds)
 ```
 
 ### toString()
@@ -400,7 +401,7 @@ const array = [...range]; // [0, 1, 2]
 
 ### Proxy Access
 
-Proxy access allows access to the array elements using bracket notation, just like a regular array.
+Proxy access allows access to the array elements using bracket notation, just like a regular array. Out-of-bounds access returns `undefined`.
 
 ```javascript
 const range = new PyRange(5);
@@ -408,6 +409,7 @@ const proxy = range.asProxy();
 
 console.log(proxy[0]); // 0
 console.log(proxy[3]); // 3
+console.log(proxy[10]); // undefined
 ```
 
 ### TypeScript Support
